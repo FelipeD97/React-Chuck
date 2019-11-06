@@ -3,8 +3,8 @@ import { Container, Box } from "bloomer";
 
 const Wrapper = props => {
     return (
-        <Container>
-            <Box>
+        <Container >
+            <Box className="quote-box">
                 {props.children}
             </Box>
         </Container>

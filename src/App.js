@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Wrapper from "./components/wrapper";
 import Quote from "./components/quotes";
 import CategoryList from "./components/categoryList";
-import { Navbar, NavbarBrand, NavbarStart, NavbarItem, Image } from "bloomer";
+import { Navbar, NavbarBrand, NavbarStart, NavbarItem, Image, HeroBody, Container, Title } from "bloomer";
 
 import "bulma/css/bulma.css";
 import "./App.css";
@@ -30,6 +30,11 @@ function App() {
                 </NavbarItem>
               </NavbarStart>
             </Navbar>
+            <HeroBody>
+              <Container hasTextAlign="centered">
+                <Title>Chuck Says...</Title>
+              </Container>
+            </HeroBody>
             <Route path="/category/:category_name" component={Quote} />
           </Wrapper>
         </Router>

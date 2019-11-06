@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { loadData } from "../utils/loadData";
 import { Button } from "bloomer";
 
+import "./quotes.css";
+
 class Quote extends Component {
     state = {
         quote: "Fetching Quote..."
@@ -35,7 +37,8 @@ class Quote extends Component {
         const category = this.props.match.params.category_name;
         return (
             <>
-                <p>{quote}</p>
+                <p className="quote-text">{quote}</p>
+                <p>&nbsp;</p>
                 <Button isColor='danger' isOutlined onClick={e => this.handleClick(e)}>
                     Get Another Quote from the {category} Category
                 </Button>

@@ -3,8 +3,6 @@ import { Link } from "react-router-dom";
 import { Dropdown, DropdownTrigger, Button, DropdownMenu, DropdownItem, DropdownContent } from "bloomer";
 import { loadData } from "../utils/loadData";
 
-import "./categoryList.css";
-
 const ListOfCategories = props => {
     return (
         <ul>
