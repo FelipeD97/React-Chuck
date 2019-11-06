@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { Dropdown, DropdownTrigger, Button, DropdownMenu, DropdownItem, DropdownContent } from "bloomer";
 import { loadData } from "../utils/loadData";
+
+import "./categoryList.css";
 
 const ListOfCategories = props => {
     return (
@@ -38,13 +41,24 @@ class CategoryList extends Component {
     render() {
         const { categories } = this.state;
         return (
-           <div>
-               {categories ? (
-                   <ListOfCategories categories={categories} />
-               ) : (
-                   <p>Fetching categories...</p>
-               )}
-           </div> 
+           <Dropdown isHoverable>
+               <DropdownTrigger>
+                   <Button isOutlined aria-haspopup="true" aria-controls="dropdown-menu" className="dropdown-list">
+                       <span>Categories</span>
+                   </Button>
+               </DropdownTrigger>
+                <DropdownMenu>
+                    <DropdownContent>
+                        <DropdownItem isActive>
+                           {categories ? (
+                            <ListOfCategories categories={categories} />
+                        ) : (
+                                <p>Fetching categories...</p>
+                            )} 
+                        </DropdownItem>
+                    </DropdownContent>
+                </DropdownMenu>         
+           </Dropdown> 
         );
     }
 

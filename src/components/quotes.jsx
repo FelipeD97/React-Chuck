@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { loadData } from "../utils/loadData";
+import { Button } from "bloomer";
 
 class Quote extends Component {
     state = {
@@ -35,9 +36,9 @@ class Quote extends Component {
         return (
             <>
                 <p>{quote}</p>
-                <button onClick={e => this.handleClick(e)}>
+                <Button isColor='danger' isOutlined onClick={e => this.handleClick(e)}>
                     Get Another Quote from the {category} Category
-                </button>
+                </Button>
             </>
         );
     }
