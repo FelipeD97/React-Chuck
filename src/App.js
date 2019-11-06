@@ -1,30 +1,45 @@
-import React, { Component } from "react";
+import React from "react";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import Wrapper from "./components/wrapper";
 import Quote from "./components/quotes";
+import CategoryList from "./components/categoryList";
+import { Navbar, NavbarBrand, NavbarStart, NavbarItem, Image, HeroBody, Container, Title } from "bloomer";
+
+import "bulma/css/bulma.css";
 import "./App.css";
 
-class App extends Component {
-  state = {
-    category: "dev"
-  };
-
-  changeCategory = category => {
-    this.setState({
-      category
-    });
-  }
-
-  render () {
-    const { category } = this.state;
+function App() {
     return (
       <div className="App">
-        <Quote category={category} />
-        <button onClick={() => this.changeCategory()}>
-          Change Category
-        </button>
+        <Router>
+          <Wrapper>
+            <Navbar style={{ border: "solid 3px #00D1B2", margin: "0" }}>
+              <NavbarBrand>
+                <NavbarItem>
+                  <Image isSize="32x32" src="chuckLogo.png" alt="" style={{marginRight: 5 }} />Chuck Reacts
+                </NavbarItem>
+              </NavbarBrand>
+              <NavbarStart>
+                <NavbarItem>
+                  <Link to="/">Home</Link>
+                </NavbarItem>
+                <NavbarItem hasDropdown isHoverable className="dropdownMenu">
+                  <Route path="/" exact>
+                    <CategoryList />
+                  </Route>
+                </NavbarItem>
+              </NavbarStart>
+            </Navbar>
+            <HeroBody>
+              <Container hasTextAlign="centered">
+                <Title>Chuck Says...</Title>
+              </Container>
+            </HeroBody>
+            <Route path="/category/:category_name" component={Quote} />
+          </Wrapper>
+        </Router>
       </div>
     );
-  }
-  
 }
 
 export default App;

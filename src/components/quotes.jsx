@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import { loadData } from "../utils/loadData";
+import { Button } from "bloomer";
+
+import "./quotes.css";
 
 class Quote extends Component {
     state = {
@@ -7,22 +10,18 @@ class Quote extends Component {
     };
     
     async componentDidMount() {
-        this.getQuote();
-    }
-    
-    componentDidUpdate(prevProps) {
-        if (prevProps.category !== this.props.category) {
-            this.getQuote();
-        }
+        const category = this.props.match.params.category_name;
+
+        this.getQuote(category);
     }
 
-    getQuote = async () => {
-        const { category } = this.props;
+    getQuote = async (category) => {
 
         const data = await loadData(
             `https://api.chucknorris.io/jokes/random?category=${category}`
         );
         const quote = data.value;
+        
         this.setState({
             quote
         });
@@ -30,18 +29,19 @@ class Quote extends Component {
 
     handleClick = e => {
         e.preventDefault();
-        this.getQuote();
+        this.getQuote(this.props.match.params.category_name);
     };
 
     render() {
         const { quote } = this.state;
-        const { category } = this.props;
+        const category = this.props.match.params.category_name;
         return (
             <>
-                <p>{quote}</p>
-                <button onClick={e => this.handleClick(e)}>
+                <p className="quote-text">{quote}</p>
+                <p>&nbsp;</p>
+                <Button isColor='danger' isOutlined onClick={e => this.handleClick(e)}>
                     Get Another Quote from the {category} Category
-                </button>
+                </Button>
             </>
         );
     }
