@@ -1,3 +1,9 @@
+# Chuck Norris-React
+
+## Description
+
+This is a mini in-class project using a Chuck Norris quote API to populate a page with random quotes based on their category.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
