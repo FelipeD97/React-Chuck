@@ -1,50 +1,46 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import { loadData } from "../utils/loadData";
 import { Button } from "bloomer";
 
 import "./quotes.css";
 
-class Quote extends Component {
-    state = {
-        quote: "Fetching Quote..."
-    };
-    
-    async componentDidMount() {
-        const category = this.props.match.params.category_name;
+const Quote = (props) => {
 
-        this.getQuote(category);
-    }
+    const [quote, setQuotes] = useState([]);
+    const [category, setCategory] = useState([]);
 
-    getQuote = async (category) => {
+    useEffect(() => {
+        const category = props.match.params.category_name;
 
-        const data = await loadData(
+        setCategory(category);
+
+        getQuote(category);
+
+    }, [props.match.params.category_name]);
+
+   const getQuote = async (category) => {
+
+        const response = await loadData(
             `https://api.chucknorris.io/jokes/random?category=${category}`
         );
-        const quote = data.value;
-        
-        this.setState({
-            quote
-        });
+        const quote = response.value;
+
+        setQuotes(quote);
     };
 
-    handleClick = e => {
-        e.preventDefault();
-        this.getQuote(this.props.match.params.category_name);
-    };
+   const refreshQuote = () => {
+       getQuote(category);
+   }
 
-    render() {
-        const { quote } = this.state;
-        const category = this.props.match.params.category_name;
-        return (
-            <>
-                <p className="quote-text">{quote}</p>
-                <p>&nbsp;</p>
-                <Button isColor='danger' isOutlined onClick={e => this.handleClick(e)}>
-                    Get Another Quote from the {category} Category
-                </Button>
-            </>
-        );
-    }
+    return (
+        <>
+            <p className="quote-text">{quote}</p>
+            <p>&nbsp;</p>
+            <Button isColor='danger' isOutlined onClick={refreshQuote}>
+                Get Another Quote from the {category} Category
+            </Button>
+        </>
+    );
 }
 
 export default Quote;

@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Dropdown, DropdownTrigger, Button, DropdownMenu, DropdownItem, DropdownContent } from "bloomer";
 import { loadData } from "../utils/loadData";
@@ -17,49 +17,41 @@ const ListOfCategories = props => {
     )
 }
 
-class CategoryList extends Component {
-    state = {
-        categories: []
-    }
+const CategoryList = () => {
 
-    async componentDidMount() {
-        this.getCategories();
-    }
+    const [categories, setCategories] = useState([]);
 
-    getCategories = async () => {
+    useEffect(() => {
+        getCategories();
+    });
+
+    const getCategories = async () => {
         const categories = await loadData(
             `https://api.chucknorris.io/jokes/categories`
         );
-    
-        this.setState({
-            categories
-        });
+
+        setCategories(categories);
     };
-
-    render() {
-        const { categories } = this.state;
-        return (
-           <Dropdown isHoverable>
-               <DropdownTrigger>
-                   <Button isOutlined aria-haspopup="true" aria-controls="dropdown-menu" className="dropdown-list">
-                       <span>Categories</span>
-                   </Button>
-               </DropdownTrigger>
-                <DropdownMenu>
-                    <DropdownContent>
-                        <DropdownItem isActive>
-                           {categories ? (
-                            <ListOfCategories categories={categories} />
-                        ) : (
-                                <p>Fetching categories...</p>
-                            )} 
-                        </DropdownItem>
-                    </DropdownContent>
-                </DropdownMenu>         
-           </Dropdown> 
-        );
-    }
-
+    return (
+        <Dropdown isHoverable>
+            <DropdownTrigger>
+                <Button isOutlined aria-haspopup="true" aria-controls="dropdown-menu" className="dropdown-list">
+                    <span>Categories</span>
+                </Button>
+            </DropdownTrigger>
+            <DropdownMenu>
+                <DropdownContent>
+                    <DropdownItem isActive>
+                        {categories ? (
+                        <ListOfCategories categories={categories} />
+                    ) : (
+                            <p>Fetching categories...</p>
+                        )} 
+                    </DropdownItem>
+                </DropdownContent>
+            </DropdownMenu>         
+        </Dropdown> 
+    );
 }
 
 export default CategoryList;
